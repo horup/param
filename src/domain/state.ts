@@ -7,6 +7,14 @@ export class State
     private sp:Partial<{[parameter in SP]:{[id:string]:string}}> = {};
     private np:Partial<{[parameter in NP]:{[id:string]:number}}> = {};
 
+    copyFrom(state:State)
+    {
+        this.entities = state.entities;
+        this.nextId = state.nextId;
+        this.sp = state.sp;
+        this.np = state.np;
+    }
+
     private get(parameter:number, id:string, dic:any)
     {
         let d = dic[parameter];

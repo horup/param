@@ -2,25 +2,17 @@ import * as PIXI from 'pixi.js';
 import {State, SP, NP, SystemManager} from './domain';
 import { SpawnSystem } from './systems/spawnSystem';
 import { RenderSystem } from './systems/renderSystem';
+import { PersistenceSystem } from './systems/persistenceSystem';
 
-let state:State = null;
-try
-{
-    state = JSON.parse(localStorage.getItem("current"));
-    if (state == null)
-        throw "state is null";
-    Object.setPrototypeOf(state, State.prototype);
-}
-catch(ex)
-{
-    state = new State();
-}
+let state:State = new State();
+
 
 let graphics = new PIXI.Graphics();
 
 const systemManager = new SystemManager();
 systemManager.addSystem(SpawnSystem);
 systemManager.addSystem(RenderSystem, graphics);
+systemManager.addSystem(PersistenceSystem);
 
 const app = new PIXI.Application();
  

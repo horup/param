@@ -1,4 +1,5 @@
 import { State, System, NP } from '../domain';
+import * as PIXI from 'pixi.js';
 
 export class RenderSystem implements System
 {
@@ -24,6 +25,5 @@ export class RenderSystem implements System
             }, [NP.x, NP.y, NP.health]);
         graphics.endFill();
 
-        localStorage.setItem("current", JSON.stringify(state));
     }
 }

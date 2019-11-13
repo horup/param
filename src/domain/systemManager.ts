@@ -18,7 +18,8 @@ export class SystemManager
     {
         if (this.findSystem(system) != undefined)
             throw "System already exists!";
-        this.systems.push(new system(optional));
+        let sys = new system(optional);
+        this.systems.push(sys);
         return this;
     }
 
@@ -40,13 +41,20 @@ export class SystemManager
         })
     }
 
+    private ticks = 0;
     tick(state:State, delta:number)
     {
+        if (this.ticks == 0)
+        {
+            this.systems.forEach(s=>s.once != null ? s.once(state) : undefined);
+        }
         this.systems.forEach(s=>
         {
             if (s.tick != null)
                 s.tick(state, delta);
         })
+
+        this.ticks++;
     }
 
     onClick(x:number, y:number, state:State)
