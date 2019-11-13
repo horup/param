@@ -44,8 +44,6 @@ export class State
         for (let sp in this.sp)
             delete this.sp[sp][id];
         delete this.entities[id];
-
-        console.log(this);
     }
 
     newEntity():Entity

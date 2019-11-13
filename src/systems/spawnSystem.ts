@@ -1,4 +1,4 @@
-import { State, NP, System } from "../domain";
+import { State, NP, System, SP } from "../domain";
 
 export class SpawnSystem implements System
 {
@@ -8,5 +8,6 @@ export class SpawnSystem implements System
         e.setNP(NP.x, x);
         e.setNP(NP.y, y);
         e.setNP(NP.health, 100);
+        e.setSP(SP.sprite, "player");
     }
 }

@@ -4,23 +4,22 @@ import { SpawnSystem } from './systems/spawnSystem';
 import { RenderSystem } from './systems/renderSystem';
 import { PersistenceSystem } from './systems/persistenceSystem';
 
-let state:State = new State();
-
-
-let graphics = new PIXI.Graphics();
-
-const systemManager = new SystemManager();
-systemManager.addSystem(SpawnSystem);
-systemManager.addSystem(RenderSystem, graphics);
-systemManager.addSystem(PersistenceSystem);
+import { CleanupSystem } from './systems/cleanupSystem';
 
 const app = new PIXI.Application();
+let state:State = new State();
+const systemManager = new SystemManager();
+
+systemManager.addSystem(SpawnSystem);
+systemManager.addSystem(CleanupSystem);
+
+systemManager.addSystem(RenderSystem, app.stage);
+systemManager.addSystem(PersistenceSystem);
  
 document.body.appendChild(app.view);
 
 let stage = new PIXI.Container();
 
-stage.addChild(graphics);
 app.stage.addChild(stage);
 app.view.onclick = (ev)=>
 {
@@ -29,19 +28,4 @@ app.view.onclick = (ev)=>
 app.ticker.add((dt)=>
 {
     systemManager.tick(state, dt);
-   /* graphics.clear();
-    graphics.beginFill(0xFF0000)
-    state.forEach(e=>
-    {
-        let health = e.getNP(NP.health);
-        graphics.drawCircle(e.getNP(NP.x),e.getNP(NP.y), health);
-
-        e.setNP(NP.health, --health);
-        if (health <= 0)
-            state.delete(e.id);
-
-        }, [NP.x, NP.y, NP.health]);
-    graphics.endFill();
-
-    localStorage.setItem("current", JSON.stringify(state));*/
 });
