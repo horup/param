@@ -1,5 +1,7 @@
 import * as PIXI from 'pixi.js';
-import {State, SP, NP} from './domain';
+import {State, SP, NP, SystemManager} from './domain';
+import { SpawnSystem } from './systems/spawnSystem';
+import { RenderSystem } from './systems/renderSystem';
 
 let state:State = null;
 try
@@ -14,28 +16,28 @@ catch(ex)
     state = new State();
 }
 
+let graphics = new PIXI.Graphics();
+
+const systemManager = new SystemManager();
+systemManager.addSystem(SpawnSystem);
+systemManager.addSystem(RenderSystem, graphics);
 
 const app = new PIXI.Application();
  
 document.body.appendChild(app.view);
 
 let stage = new PIXI.Container();
-let graphics = new PIXI.Graphics();
 
 stage.addChild(graphics);
 app.stage.addChild(stage);
 app.view.onclick = (ev)=>
 {
-    let e = state.newEntity();
-    e.setNP(NP.x, ev.offsetX);
-    e.setNP(NP.y, ev.offsetY);
-    e.setNP(NP.health, 100);
-
-    console.log(ev);
+    systemManager.onClick(ev.offsetX, ev.offsetY, state);
 }
-app.ticker.add(()=>
+app.ticker.add((dt)=>
 {
-    graphics.clear();
+    systemManager.tick(state, dt);
+   /* graphics.clear();
     graphics.beginFill(0xFF0000)
     state.forEach(e=>
     {
@@ -49,5 +51,5 @@ app.ticker.add(()=>
         }, [NP.x, NP.y, NP.health]);
     graphics.endFill();
 
-    localStorage.setItem("current", JSON.stringify(state));
+    localStorage.setItem("current", JSON.stringify(state));*/
 });
