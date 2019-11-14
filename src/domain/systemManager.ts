@@ -28,7 +28,7 @@ export class SystemManager
         let s = this.findSystem(system);
         if (s == undefined)
             throw "System does not exist!";
-        let i = this.systems.findIndex(ss=>ss == s);
+        let i = this.systems.indexOf(s);
         this.systems.splice(i, 1);
     }
 

@@ -6,6 +6,12 @@ export class Entity
     state:State;
     id:string;
 
+    constructor(state:State, id:string)
+    {
+        this.state = state;
+        this.id = id;
+    }
+
     setNP(np:NP, v:number)
     {
         this.state.setNP(np, v, this.id);

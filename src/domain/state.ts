@@ -49,9 +49,8 @@ export class State
 
     newEntity():Entity
     {
-        let e = new Entity();
-        e.id = (this.nextId++).toString();
-        e.state = this;
+        let id = (this.nextId++).toString();
+        let e = new Entity(this, id);
         this.entities[e.id] = {};
         return e;
     }
@@ -85,8 +84,7 @@ export class State
 
     forEach(f:(e:Entity)=>any, npArray:NP[] = [], spArray:SP[] = [], apArray:AP[] = [])
     {
-        let e = new Entity();
-        e.state = this;
+        let e = new Entity(this, "");
         for (let id in this.entities)
         {
             let there = true;
