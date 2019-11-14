@@ -16,7 +16,10 @@ export enum NP
     direction,
 
     /** health of the entity */
-    health
+    health,
+
+    /** 1 if the entity is solid */
+    solid
 }
 
 export enum SP

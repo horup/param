@@ -18,7 +18,7 @@ export class SpawnSystem implements System
             // clear state
             state.copyFrom(new State());
 
-            let size = 16;
+            let size = 17;
             for (let y = 0; y < size; y++)
             {
                 for (let x = 0; x < size; x++)
@@ -26,7 +26,23 @@ export class SpawnSystem implements System
                     let e = state.newEntity();
                     e.setNP(NP.x, x);
                     e.setNP(NP.y, y);
-                    e.setSP(SP.sprite, "player");
+                    if (y == 0 || y == size-1 || x == 0 || x == size-1)
+                    {
+                        e.setNP(NP.solid, 1);
+                        e.setSP(SP.sprite, "stone");
+                    }
+                    else
+                    {
+                        if (x % 2 == 0 && y % 2 == 0)
+                        {
+                            e.setNP(NP.solid, 1);
+                            e.setSP(SP.sprite, "block");
+                        }
+                        else
+                        {
+                            e.setSP(SP.sprite, "grass");
+                        }
+                    }
                 }
             }
         }

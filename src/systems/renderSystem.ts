@@ -36,7 +36,7 @@ export class RenderSystem implements System
                 let spriteName = e.getSP(SP.sprite);
                 sprite = PIXI.Sprite.from(imgs[spriteName]);
                 sprite.name = e.id;
-                sprite.scale.set(1/24);
+                sprite.scale.set(1/16);
                 this.sprites.addChild(sprite);
             }
             

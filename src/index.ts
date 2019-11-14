@@ -19,7 +19,7 @@ systemManager.addSystem(PersistenceSystem);
  
 document.body.appendChild(app.view);
 
-stage.scale.set(24 * 2);
+stage.scale.set(24);
 app.stage.addChild(stage);
 app.view.onclick = (ev)=>
 {
