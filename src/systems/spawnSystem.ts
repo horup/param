@@ -7,6 +7,8 @@ export class SpawnSystem implements System
         let e = state.newEntity();
         e.setNP(NP.x, x);
         e.setNP(NP.y, y);
+        e.setNP(NP.anchorX, 0.5);
+        e.setNP(NP.anchorY, 0.75);
         e.setNP(NP.health, 100);
         e.setSP(SP.sprite, "player");
     }
@@ -17,7 +19,6 @@ export class SpawnSystem implements System
         {
             // clear state
             state.copyFrom(new State());
-
             let size = 17;
             for (let y = 0; y < size; y++)
             {

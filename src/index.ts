@@ -19,11 +19,12 @@ systemManager.addSystem(PersistenceSystem);
  
 document.body.appendChild(app.view);
 
-stage.scale.set(24);
+let scale = 16*2;
+stage.scale.set(scale);
 app.stage.addChild(stage);
 app.view.onclick = (ev)=>
 {
-    systemManager.onClick(ev.offsetX, ev.offsetY, state);
+    systemManager.onClick(ev.offsetX / scale, ev.offsetY / scale, state);
 }
 document.onkeydown = (ev)=>
 {

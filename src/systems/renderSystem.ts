@@ -30,6 +30,7 @@ export class RenderSystem implements System
 
     private drawSprites(state:State, dt:number, seen:Seen)
     {
+        let f = 1/16;
         state.forEach(e => {
             let sprite = this.findSprite(e.id);
             if (sprite == undefined) {
@@ -42,6 +43,8 @@ export class RenderSystem implements System
             
             sprite.x = e.getNP(NP.x);
             sprite.y = e.getNP(NP.y);
+            sprite.anchor.x = e.getNP(NP.anchorX, 0);
+            sprite.anchor.y = e.getNP(NP.anchorY, 0);
             seen[e.id] = true;
         }, [NP.x, NP.y], [SP.sprite])
     }
@@ -52,21 +55,5 @@ export class RenderSystem implements System
         
         this.drawSprites(state,dt,seen);
         this.removeUnseen(seen);
-
-      /*  let graphics = this.graphics;
-        graphics.clear();
-        graphics.beginFill(0xFF0000)
-        state.forEach(e=>
-        {
-            let health = e.getNP(NP.health);
-            graphics.drawCircle(e.getNP(NP.x),e.getNP(NP.y), health);
-
-            e.setNP(NP.health, --health);
-            if (health <= 0)
-                state.delete(e.id);
-
-        }, [NP.x, NP.y, NP.health]);
-        graphics.endFill();*/
-
     }
 }

@@ -19,7 +19,10 @@ export enum NP
     health,
 
     /** 1 if the entity is solid */
-    solid
+    solid,
+
+    anchorX,
+    anchorY 
 }
 
 export enum SP

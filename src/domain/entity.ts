@@ -9,17 +9,19 @@ export class Entity
     {
         this.state.setNP(np, v, this.id);
     }
-    getNP(np:NP)
+    getNP(np:NP, def = null):number
     {
-        return this.state.getNP(np, this.id);
+        let v = this.state.getNP(np, this.id);
+        return v != null ? v : def;
     }
 
     setSP(sp:SP, v:string)
     {
         this.state.setSP(sp, v, this.id);
     }
-    getSP(sp:SP)
+    getSP(sp:SP, def = null):string
     {
-        return this.state.getSP(sp, this.id);
+        let v = this.state.getSP(sp, this.id);
+        return v != null ? v : def;
     }
 }
