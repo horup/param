@@ -34,17 +34,17 @@ export class RenderSystem implements System
         state.forEach(e => {
             let sprite = this.findSprite(e.id);
             if (sprite == undefined) {
-                let spriteName = e.getSP(S.sprite);
+                let spriteName = e.getS(S.sprite);
                 sprite = PIXI.Sprite.from((imgs as any)[spriteName]);
                 sprite.name = e.id;
                 sprite.scale.set(1/16);
                 this.sprites.addChild(sprite);
             }
             
-            sprite.x = e.getNP(N.x);
-            sprite.y = e.getNP(N.y);
-            sprite.anchor.x = e.getNP(N.anchorX, 0);
-            sprite.anchor.y = e.getNP(N.anchorY, 0);
+            sprite.x = e.getN(N.x);
+            sprite.y = e.getN(N.y);
+            sprite.anchor.x = e.getN(N.anchorX, 0);
+            sprite.anchor.y = e.getN(N.anchorY, 0);
             seen[e.id] = true;
         }, [N.x, N.y], [S.sprite])
     }

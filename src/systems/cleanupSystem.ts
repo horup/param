@@ -6,10 +6,10 @@ export class CleanupSystem implements System
     {
         state.forEach(e=>
         {
-            let h = e.getNP(N.health);
+            let h = e.getN(N.health);
             h--;
             e.setN(N.health, h);
-            if (e.getNP(N.health) <= 0)
+            if (e.getN(N.health) <= 0)
                 state.delete(e.id);
         }, [N.health])
     }

@@ -16,7 +16,7 @@ export class Entity
     {
         this.state.setNP(np, v, this.id);
     }
-    getNP(np:N, def:number | undefined = undefined):number
+    getN(np:N, def:number | undefined = undefined):number
     {
         let v = this.state.getNP(np, this.id);
         return v != null ? v : def;
@@ -26,7 +26,7 @@ export class Entity
     {
         this.state.setSP(sp, v, this.id);
     }
-    getSP(sp:S, def:string | undefined = undefined):string
+    getS(sp:S, def:string | undefined = undefined):string
     {
         let v = this.state.getSP(sp, this.id);
         return v != null ? v : def;
