@@ -1,4 +1,5 @@
-import { NP, SP, State } from ".";
+import { NP, SP } from "./parameters";
+import { State } from "./state";
 
 export class Entity
 {
