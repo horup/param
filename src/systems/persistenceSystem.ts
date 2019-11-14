@@ -6,7 +6,7 @@ export class PersistenceSystem implements System
     {
         try
         {
-            let s = JSON.parse(localStorage.getItem("current"));
+            let s = JSON.parse(localStorage.getItem("current") as any);
             if (s == null)
                 throw "state is null";
             Object.setPrototypeOf(s, State.prototype);

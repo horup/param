@@ -41,9 +41,9 @@ export class State
     delete(id:string)
     {
         for (let np in this.np)
-            delete this.np[np][id];
+            delete (this.np as any)[np][id];
         for (let sp in this.sp)
-            delete this.sp[sp][id];
+            delete (this.sp as any)[sp][id];
         delete this.entities[id];
     }
 
