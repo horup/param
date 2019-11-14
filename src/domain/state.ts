@@ -1,4 +1,4 @@
-import { SP, NP, Entity } from ".";
+import { SP, NP, AP, Entity } from ".";
 
 export class State
 {
@@ -6,6 +6,7 @@ export class State
     private nextId = 0;
     private sp:Partial<{[parameter in SP]:{[id:string]:string}}> = {};
     private np:Partial<{[parameter in NP]:{[id:string]:number}}> = {};
+    private ap:Partial<{[parameter in AP]:{[id:string]:any}}> = {};
 
     copyFrom(state:State)
     {
@@ -30,7 +31,7 @@ export class State
         return null;
     }
 
-    private exist(parameter:number, id:string, dic:any)
+    private exists(parameter:number, id:string, dic:any)
     {
         if (dic[parameter] != undefined && dic[parameter][id] != undefined)
             return true;
@@ -73,7 +74,16 @@ export class State
         return this.get(parameter, id, this.sp);
     }
 
-    forEach(f:(e:Entity)=>any, npArray:NP[] = [], spArray:SP[] = [])
+    setAP(parameter:AP, v:string, id:string)
+    {
+        this.set(parameter, v, id, this.ap);
+    }
+    getAP(parameter:AP, id:string)
+    {
+        return this.get(parameter, id, this.ap);
+    }
+
+    forEach(f:(e:Entity)=>any, npArray:NP[] = [], spArray:SP[] = [], apArray:AP[] = [])
     {
         let e = new Entity();
         e.state = this;
@@ -82,7 +92,7 @@ export class State
             let there = true;
             for (let np of npArray)
             {
-                if (!this.exist(np, id, this.np))
+                if (!this.exists(np, id, this.np))
                 {
                     there = false;
                     break;
@@ -90,7 +100,16 @@ export class State
             }
             for (let sp of spArray)
             {
-                if (!this.exist(sp, id, this.sp))
+                if (!this.exists(sp, id, this.sp))
+                {
+                    there = false;
+                    break;
+                }
+            }
+
+            for (let ap of apArray)
+            {
+                if (!this.exists(ap, id, this.ap))
                 {
                     there = false;
                     break;

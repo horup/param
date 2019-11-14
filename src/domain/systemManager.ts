@@ -65,4 +65,13 @@ export class SystemManager
                 s.onClick(x, y, state);
         })
     }
+
+    onKeydown(keyCode:number, state:State)
+    {
+        this.systems.forEach(s=>
+        {
+            if (s.onKeydown != null)
+                s.onKeydown(keyCode, state);
+        })
+    }
 }

@@ -27,3 +27,9 @@ export enum SP
     /** name of the sprite used for the entity */
     sprite,
 }
+
+
+export enum AP
+{
+
+}
