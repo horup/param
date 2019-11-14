@@ -1,12 +1,12 @@
-import { SP, NP, AP, Entity } from ".";
+import { S, N, A, Entity } from ".";
 
 export class State
 {
     private entities:{[id:string]:{}} = {};
     private nextId = 0;
-    private sp:Partial<{[parameter in SP]:{[id:string]:string}}> = {};
-    private np:Partial<{[parameter in NP]:{[id:string]:number}}> = {};
-    private ap:Partial<{[parameter in AP]:{[id:string]:any}}> = {};
+    private sp:Partial<{[parameter in S]:{[id:string]:string}}> = {};
+    private np:Partial<{[parameter in N]:{[id:string]:number}}> = {};
+    private ap:Partial<{[parameter in A]:{[id:string]:any}}> = {};
 
     copyFrom(state:State)
     {
@@ -55,34 +55,34 @@ export class State
         return e;
     }
 
-    setNP(parameter:NP, v:number, id:string)
+    setNP(parameter:N, v:number, id:string)
     {
         this.set(parameter, v, id, this.np);
     }
-    getNP(parameter:NP, id:string)
+    getNP(parameter:N, id:string)
     {
         return this.get(parameter, id, this.np);
     }
 
-    setSP(parameter:SP, v:string, id:string)
+    setSP(parameter:S, v:string, id:string)
     {
         this.set(parameter, v, id, this.sp);
     }
-    getSP(parameter:SP, id:string)
+    getSP(parameter:S, id:string)
     {
         return this.get(parameter, id, this.sp);
     }
 
-    setAP(parameter:AP, v:string, id:string)
+    setAP(parameter:A, v:string, id:string)
     {
         this.set(parameter, v, id, this.ap);
     }
-    getAP(parameter:AP, id:string)
+    getAP(parameter:A, id:string)
     {
         return this.get(parameter, id, this.ap);
     }
 
-    forEach(f:(e:Entity)=>any, npArray:NP[] = [], spArray:SP[] = [], apArray:AP[] = [])
+    forEach(f:(e:Entity)=>any, npArray:N[] = [], spArray:S[] = [], apArray:A[] = [])
     {
         let e = new Entity(this, "");
         for (let id in this.entities)

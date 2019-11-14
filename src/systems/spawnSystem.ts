@@ -1,16 +1,16 @@
-import { State, NP, System, SP } from "../domain";
+import { State, N, System, S } from "../domain";
 
 export class SpawnSystem implements System
 {
     onClick(x:number, y:number, state:State)
     {
         let e = state.newEntity();
-        e.setNP(NP.x, x);
-        e.setNP(NP.y, y);
-        e.setNP(NP.anchorX, 0.5);
-        e.setNP(NP.anchorY, 0.75);
-        e.setNP(NP.health, 100);
-        e.setSP(SP.sprite, "player");
+        e.setN(N.x, x);
+        e.setN(N.y, y);
+        e.setN(N.anchorX, 0.5);
+        e.setN(N.anchorY, 0.75);
+        e.setN(N.health, 100);
+        e.setS(S.sprite, "player");
     }
 
     onKeydown(keyCode:number, state:State)
@@ -25,23 +25,23 @@ export class SpawnSystem implements System
                 for (let x = 0; x < size; x++)
                 {
                     let e = state.newEntity();
-                    e.setNP(NP.x, x);
-                    e.setNP(NP.y, y);
+                    e.setN(N.x, x);
+                    e.setN(N.y, y);
                     if (y == 0 || y == size-1 || x == 0 || x == size-1)
                     {
-                        e.setNP(NP.solid, 1);
-                        e.setSP(SP.sprite, "stone");
+                        e.setN(N.solid, 1);
+                        e.setS(S.sprite, "stone");
                     }
                     else
                     {
                         if (x % 2 == 0 && y % 2 == 0)
                         {
-                            e.setNP(NP.solid, 1);
-                            e.setSP(SP.sprite, "block");
+                            e.setN(N.solid, 1);
+                            e.setS(S.sprite, "block");
                         }
                         else
                         {
-                            e.setSP(SP.sprite, "grass");
+                            e.setS(S.sprite, "grass");
                         }
                     }
                 }

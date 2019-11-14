@@ -1,4 +1,4 @@
-import { State, System, NP, SP } from '../domain';
+import { State, System, N, S } from '../domain';
 import * as PIXI from 'pixi.js';
 import * as imgs from '../../imgs';
 type Seen = {[id:string]:any};
@@ -34,19 +34,19 @@ export class RenderSystem implements System
         state.forEach(e => {
             let sprite = this.findSprite(e.id);
             if (sprite == undefined) {
-                let spriteName = e.getSP(SP.sprite);
+                let spriteName = e.getSP(S.sprite);
                 sprite = PIXI.Sprite.from((imgs as any)[spriteName]);
                 sprite.name = e.id;
                 sprite.scale.set(1/16);
                 this.sprites.addChild(sprite);
             }
             
-            sprite.x = e.getNP(NP.x);
-            sprite.y = e.getNP(NP.y);
-            sprite.anchor.x = e.getNP(NP.anchorX, 0);
-            sprite.anchor.y = e.getNP(NP.anchorY, 0);
+            sprite.x = e.getNP(N.x);
+            sprite.y = e.getNP(N.y);
+            sprite.anchor.x = e.getNP(N.anchorX, 0);
+            sprite.anchor.y = e.getNP(N.anchorY, 0);
             seen[e.id] = true;
-        }, [NP.x, NP.y], [SP.sprite])
+        }, [N.x, N.y], [S.sprite])
     }
 
     tick(state:State, dt:number)

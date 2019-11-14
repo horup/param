@@ -1,4 +1,4 @@
-import { System, State, NP } from "../domain";
+import { System, State, N } from "../domain";
 
 export class CleanupSystem implements System
 {
@@ -6,11 +6,11 @@ export class CleanupSystem implements System
     {
         state.forEach(e=>
         {
-            let h = e.getNP(NP.health);
+            let h = e.getNP(N.health);
             h--;
-            e.setNP(NP.health, h);
-            if (e.getNP(NP.health) <= 0)
+            e.setN(N.health, h);
+            if (e.getNP(N.health) <= 0)
                 state.delete(e.id);
-        }, [NP.health])
+        }, [N.health])
     }
 }

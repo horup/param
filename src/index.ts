@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import {State, SP, NP, SystemManager} from './domain';
+import {State, S, N, SystemManager} from './domain';
 import { SpawnSystem } from './systems/spawnSystem';
 import { RenderSystem } from './systems/renderSystem';
 import { PersistenceSystem } from './systems/persistenceSystem';

@@ -1,4 +1,4 @@
-import { NP, SP } from "./parameters";
+import { N, S } from "./parameters";
 import { State } from "./state";
 
 export class Entity
@@ -12,21 +12,21 @@ export class Entity
         this.id = id;
     }
 
-    setNP(np:NP, v:number)
+    setN(np:N, v:number)
     {
         this.state.setNP(np, v, this.id);
     }
-    getNP(np:NP, def:number | undefined = undefined):number
+    getNP(np:N, def:number | undefined = undefined):number
     {
         let v = this.state.getNP(np, this.id);
         return v != null ? v : def;
     }
 
-    setSP(sp:SP, v:string)
+    setS(sp:S, v:string)
     {
         this.state.setSP(sp, v, this.id);
     }
-    getSP(sp:SP, def:string | undefined = undefined):string
+    getSP(sp:S, def:string | undefined = undefined):string
     {
         let v = this.state.getSP(sp, this.id);
         return v != null ? v : def;

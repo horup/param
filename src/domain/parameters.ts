@@ -1,4 +1,4 @@
-export enum NP
+export enum N
 {
     /** x position of the entity */
     x,
@@ -25,7 +25,7 @@ export enum NP
     anchorY 
 }
 
-export enum SP
+export enum S
 {
     /** visible title of the entity */
     title,
@@ -35,7 +35,7 @@ export enum SP
 }
 
 
-export enum AP
+export enum A
 {
 
 }
