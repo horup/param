@@ -28,8 +28,6 @@ export enum N
     /** the size of a grid in both dimension */
     gridSize,
 
-    /** the radius of the entity */
-    radius
 }
 
 export enum S

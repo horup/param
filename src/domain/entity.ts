@@ -1,6 +1,7 @@
 import { N, S, A } from "./parameters";
 import { State } from "./state";
 
+
 export class Entity
 {
     state:State;
@@ -38,7 +39,7 @@ export class Entity
     {
         this.state.setAP(a, v, this.id);
     }
-    getA(a:A, def:any = undefined):string
+    getA(a:A, def:any = undefined):any
     {
         let v = this.state.getAP(a, this.id);
         return v != null ? v : def;

@@ -14,6 +14,7 @@ export class State
         this.nextId = state.nextId;
         this.sp = state.sp;
         this.np = state.np;
+        this.ap = state.ap;
     }
 
     private get(parameter:number, id:string, dic:any)
@@ -53,6 +54,19 @@ export class State
         let e = new Entity(this, id);
         this.entities[e.id] = {};
         return e;
+    }
+
+    getFirstN(n:N):Entity|undefined
+    {
+        if (this.np[n] != undefined)
+        {
+            for (let id in this.np[n])
+            {   
+                let e = new Entity(this, id);
+                return e;
+            }
+        }
+        return undefined;
     }
 
     setNP(parameter:N, v:number, id:string)
