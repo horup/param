@@ -18,11 +18,15 @@ export enum N
     /** health of the entity */
     health,
 
-    /** 1 if the entity is solid */
+    /** 1 if the entity is solid
+     *  2 if the entity is soft, but solid, i.e. can pass through other soft entities */
     solid,
 
     anchorX,
-    anchorY 
+    anchorY,
+
+    /** the size of a grid in both dimension */
+    gridSize
 }
 
 export enum S
@@ -37,5 +41,6 @@ export enum S
 
 export enum A
 {
-
+    /** a 2d grid of entities, assumed to be an array of entity ids of length = gridSize*gridSize */
+    grid,
 }

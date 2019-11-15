@@ -5,6 +5,9 @@ import { RenderSystem } from './systems/renderSystem';
 import { PersistenceSystem } from './systems/persistenceSystem';
 
 import { CleanupSystem } from './systems/cleanupSystem';
+import { playerSystem } from './systems/playerSystem';
+import { MovementSystem } from './systems/movementSystem';
+
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 const app = new PIXI.Application();
 let state:State = new State();
@@ -12,6 +15,8 @@ const systemManager = new SystemManager();
 let stage = new PIXI.Container();
 
 systemManager.addSystem(SpawnSystem);
+systemManager.addSystem(playerSystem);
+systemManager.addSystem(MovementSystem);
 systemManager.addSystem(CleanupSystem);
 
 systemManager.addSystem(RenderSystem, stage);
@@ -29,6 +34,10 @@ app.view.onclick = (ev)=>
 document.onkeydown = (ev)=>
 {
     systemManager.onKeydown(ev.keyCode, state);
+}
+document.onkeyup = (ev)=>
+{
+    systemManager.onKeyup(ev.keyCode, state);
 }
 app.ticker.add((dt)=>
 {

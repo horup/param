@@ -74,4 +74,13 @@ export class SystemManager
                 s.onKeydown(keyCode, state);
         })
     }
+
+    onKeyup(keyCode:number, state:State)
+    {
+        this.systems.forEach(s=>
+        {
+            if (s.onKeyup != null)
+                s.onKeyup(keyCode, state);
+        })
+    }
 }

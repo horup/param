@@ -6,4 +6,5 @@ export interface System
     tick?(state:State, delta:number):any;
     onClick?(x:number, y:number, state:State):any;
     onKeydown?(keyCode:number, state:State):any;
+    onKeyup?(keyCode:number, state:State):any;
 }

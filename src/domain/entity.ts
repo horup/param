@@ -1,4 +1,4 @@
-import { N, S } from "./parameters";
+import { N, S, A } from "./parameters";
 import { State } from "./state";
 
 export class Entity
@@ -26,9 +26,30 @@ export class Entity
     {
         this.state.setSP(sp, v, this.id);
     }
+
     getS(sp:S, def:string | undefined = undefined):string
     {
         let v = this.state.getSP(sp, this.id);
         return v != null ? v : def;
+    }
+
+
+    setA(a:A, v:any)
+    {
+        this.state.setAP(a, v, this.id);
+    }
+    getA(a:A, def:any = undefined):string
+    {
+        let v = this.state.getAP(a, this.id);
+        return v != null ? v : def;
+    }
+
+    getNArray(...args:N[]):number[]
+    {
+        let nArray:number[] = [];
+        for (let i = 0; i < args.length; i++)
+            nArray[i] = this.getN(args[i]);
+
+        return nArray;
     }
 }
