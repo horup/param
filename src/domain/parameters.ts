@@ -26,7 +26,10 @@ export enum N
     anchorY,
 
     /** the size of a grid in both dimension */
-    gridSize
+    gridSize,
+
+    /** the radius of the entity */
+    radius
 }
 
 export enum S

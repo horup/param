@@ -24,6 +24,8 @@ export class SpawnSystem implements System
         e.setN(N.anchorY, 0.75);
         e.setN(N.health, 100);
         e.setS(S.sprite, "player");
+        e.setN(N.solid, 2);
+        e.setN(N.radius, 0.35);
     }
 
     spawnGrid(state:State)
@@ -40,8 +42,12 @@ export class SpawnSystem implements System
                 let e = state.newEntity();
                 let i = y * gridSize + x;
                 grid[i] = e.id;
-                e.setN(N.x, x);
-                e.setN(N.y, y);
+                e.setN(N.x, x + 0.5);
+                e.setN(N.y, y + 0.5);
+                e.setN(N.anchorX, 0.5);
+                e.setN(N.anchorY, 0.5);
+                e.setN(N.radius, 0.5);
+
                 if (y == 0 || y == gridSize-1 || x == 0 || x == gridSize-1)
                 {
                     e.setN(N.solid, 1);
@@ -56,7 +62,7 @@ export class SpawnSystem implements System
                     }
                     else
                     {
-                        e.setS(S.sprite, "grass");
+                       // e.setS(S.sprite, "grass");
                     }
                 }
             }
