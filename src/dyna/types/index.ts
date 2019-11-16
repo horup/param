@@ -1,5 +1,4 @@
-import { State, SystemManager, System } from "../param";
-
+import { State, SystemManager, System } from "../../param";
 
 export type DynaState = State<N, S, A>;
 export type DynaSystemManager = SystemManager<N, S, A>;
