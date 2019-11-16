@@ -36,83 +36,93 @@ export class MovementSystem implements DynaSystem
         return false;
     }*/
 
-    getCell(ix:number, iy:number, grid:string[], gridSize:number, state:DynaState):string | null
+    getCellId(x:number, y:number, grid:string[], state:DynaState):string | null
     {
-        let i = gridSize * iy + ix;
-        if (i>=0 && i < gridSize)
+        let size = Math.sqrt(grid.length);
+        let i = size * Math.floor(y) + Math.floor(x);
+        if (i>=0 && i < grid.length)
             return grid[i];
 
         return null;
     }
+
+    getIsSolid(x:number, y:number, grid:string[], state:DynaState):boolean
+    {
+        let cellId = this.getCellId(x, y, grid, state);
+        if (cellId != null)
+        {
+            return state.getNP(N.solid, cellId) != null;
+        }
+        
+    }
     
     tick(state:DynaState, dt:number)
     {
+        let r = 1;
+        let longestResp = new SAT.Response();
+        let circle = new SAT.Circle();
+        let box1 = new SAT.Box();
+        let box2 = new SAT.Box();
+        let a = 0.0001;
+        circle.r = r/2 - a;
+        box1.w = box1.h = r - a*2;
+        box2.w = box2.h = r - a*2;
         let gridEntity = state.getFirstN(N.gridSize);
         if (gridEntity != undefined)
         {
 
-            let gridSize = gridEntity.getN(N.gridSize);
             let grid = gridEntity.getA(A.grid) as string[];
             let spd = 0.05;
             state.forEach((e) => {
                 let [x, y, vx, vy] = e.getNArray(N.x, N.y, N.vx, N.vy);
                 if (x == null || y == null || vx == null || vy == null)
                     return;
-                if (vx != 0)
-                {
-                    let diff = Math.floor(y) - (y - 0.5);
-                    console.log(diff);
-                    if (diff == 0)
-                    {
-                        let nx = x + vx;
-                        x = nx;
-                        e.setN(N.x, nx);
-                    }
-                    else
-                    {
-                        if (Math.abs(diff) > spd)
-                            y += Math.sign(diff)*spd;
-                        else
-                            y += diff;
-                        e.setN(N.y, y);
-                    }
-                }
-                else if (vy != 0)
-                {
-                    let diff = Math.floor(x) - (x - 0.5);
-                    console.log(diff);
-                    if (diff == 0)
-                    {
-                        let ny = y + vy;
-                        y = ny;
-                        e.setN(N.y, ny);
-                    }
-                    else
-                    {
-                        if (Math.abs(diff) > spd)
-                            x += Math.sign(diff)*spd;
-                        else
-                            x += diff;
-                        e.setN(N.x, x);
-                    }
-                }
-        /*
-                if (vx != 0)
-                {
-                    let nx = x + vx;
-                    if (!this.checkCollision(e, state, nx, y, radius))
-                    {
-                        x = nx;
-                        e.setN(N.x, nx);
-                    }
-                }
-                if (vy != 0)
-                {
-                    let ny = y + vy;
-                    if (!this.checkCollision(e, state, x, ny, radius))
-                        e.setN(N.y, ny);
-                }*/
 
+                
+                let nx = x + vx;
+                let ny = y;
+
+                let resolveCollision = ()=>{
+                    circle.pos.x = nx;
+                    circle.pos.y = ny;
+                    box1.pos.x = nx - r/2 + a;
+                    box1.pos.y = ny - r/2 + a;
+                    let overlap = false;
+                    let longestResp:SAT.Response = new SAT.Response();
+                    for (let iy = -1; iy <= 1; iy++) {
+                        for (let ix = -1; ix <= 1; ix++) {
+                            if (!(iy == 0 && ix == 0)) {
+                                let cellId = this.getCellId(nx + ix, ny + iy, grid, state);
+                                if (cellId != null && state.getNP(N.solid, cellId) != null) {
+                                    box2.pos.x = Math.floor(nx) + ix + a;
+                                    box2.pos.y = Math.floor(ny) + iy + a;
+                                    let resp = new SAT.Response();
+                                    if (SAT.testPolygonPolygon(box1.toPolygon(), box2.toPolygon(), resp)) {
+                                        if (overlap == false || resp.overlap > longestResp.overlap)
+                                            longestResp = resp;
+                                        overlap = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (overlap)
+                    {
+                        nx -= longestResp.overlapV.x;
+                        ny -= longestResp.overlapV.y;
+                    }
+                }
+
+                if (x != nx)
+                    resolveCollision();
+
+                ny = y + vy;
+
+                if (y != ny)
+                    resolveCollision();
+
+                e.setN(N.x, nx);
+                e.setN(N.y, ny);
             }, [N.x, N.y, N.vx, N.vy])
         }
     }

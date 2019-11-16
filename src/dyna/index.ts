@@ -1,5 +1,5 @@
 import { State, SystemManager, System } from '../param';
-import { N, S, A, DynaState, DynaSystemManager} from './types';
+import { N, S, A, DynaState, DynaSystemManager} from './types/parameters';
 import * as PIXI from 'pixi.js';
 import { SpawnSystem } from './systems/spawnSystem';
 import { RenderSystem } from './systems/renderSystem';
@@ -10,7 +10,7 @@ import { playerSystem } from './systems/playerSystem';
 import { MovementSystem } from './systems/movementSystem';
 
 
-export * from './types';
+export * from './types/parameters';
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 const app = new PIXI.Application();
