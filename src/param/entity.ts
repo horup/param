@@ -1,52 +1,52 @@
 import { State } from "./state";
 
 
-export class Entity<N extends number, S extends number, A extends number>
+export class Entity<NParam extends number, SParam extends number, AParam extends number>
 {
-    state:State<N, S, A>;
+    state:State<NParam, SParam, AParam>;
     id:string;
 
-    constructor(state:State<N, S, A>, id:string)
+    constructor(state:State<NParam, SParam, AParam>, id:string)
     {
         this.state = state;
         this.id = id;
     }
 
-    setN(np:N, v:number)
+    setN(np:NParam, v:number)
     {
         this.state.setNP(np, v, this.id);
     }
-    getN(np:N, def:number | undefined = undefined):number
+    getN(np:NParam, def:number | null = null):number|null
     {
         let v = this.state.getNP(np, this.id);
         return v != null ? v : def;
     }
 
-    setS(sp:S, v:string)
+    setS(sp:SParam, v:string)
     {
         this.state.setSP(sp, v, this.id);
     }
 
-    getS(sp:S, def:string | undefined = undefined):string
+    getS(sp:SParam, def:string | null = null):string|null
     {
         let v = this.state.getSP(sp, this.id);
         return v != null ? v : def;
     }
 
 
-    setA(a:A, v:any)
+    setA(a:AParam, v:any)
     {
         this.state.setAP(a, v, this.id);
     }
-    getA(a:A, def:any = undefined):any
+    getA(a:AParam, def:any = undefined):any
     {
         let v = this.state.getAP(a, this.id);
         return v != null ? v : def;
     }
 
-    getNArray(...args:N[]):number[]
+    getNArray(...args:NParam[]):(number|null)[]
     {
-        let nArray:number[] = [];
+        let nArray:(number|null)[] = [];
         for (let i = 0; i < args.length; i++)
             nArray[i] = this.getN(args[i]);
 

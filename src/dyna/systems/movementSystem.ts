@@ -56,6 +56,8 @@ export class MovementSystem implements DynaSystem
             let spd = 0.05;
             state.forEach((e) => {
                 let [x, y, vx, vy] = e.getNArray(N.x, N.y, N.vx, N.vy);
+                if (x == null || y == null || vx == null || vy == null)
+                    return;
                 if (vx != 0)
                 {
                     let diff = Math.floor(y) - (y - 0.5);

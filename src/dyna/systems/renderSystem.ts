@@ -34,19 +34,29 @@ export class RenderSystem implements DynaSystem
         let f = 1/16;
         state.forEach(e => {
             let sprite = this.findSprite(e.id);
-            if (sprite == undefined) {
+            if (sprite == null) {
                 let spriteName = e.getS(S.sprite);
-                sprite = PIXI.Sprite.from((imgs as any)[spriteName]);
-                sprite.name = e.id;
-                sprite.scale.set(1/16);
-                this.sprites.addChild(sprite);
+                if (spriteName != null)
+                {
+                    sprite = PIXI.Sprite.from((imgs as any)[spriteName]);
+                    sprite.name = e.id;
+                    sprite.scale.set(1/16);
+                    this.sprites.addChild(sprite);
+                }
             }
             
-            sprite.x = e.getN(N.x);
-            sprite.y = e.getN(N.y);
-            sprite.anchor.x = e.getN(N.anchorX, 0);
-            sprite.anchor.y = e.getN(N.anchorY, 0);
-            seen[e.id] = true;
+            if (sprite != null)
+            {
+                let [x, y, anchorX, anchorY] = e.getNArray(N.x, N.y, N.anchorX, N.anchorY);
+                if (x != null && y != null && anchorX != null && anchorY)
+                {
+                    sprite.x = x;
+                    sprite.y = y;
+                    sprite.anchor.x = anchorX;
+                    sprite.anchor.y = anchorY;
+                    seen[e.id] = true;
+                }
+            }
         }, [N.x, N.y], [S.sprite])
     }
 

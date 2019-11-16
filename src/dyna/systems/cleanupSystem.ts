@@ -7,7 +7,8 @@ export class CleanupSystem implements DynaSystem
     {
         state.forEach(e=>
         {
-            if (e.getN(N.health) <= 0)
+            let h = e.getN(N.health)
+            if (h != null && h <= 0)
                 state.delete(e.id);
         }, [N.health])
     }

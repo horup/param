@@ -1,6 +1,6 @@
 import { Entity } from "./entity";
 
-export class State<N extends number, S extends number, A extends number>
+export class State<NParam extends number, SParam extends number, AParam extends number>
 {
     private entities:{[id:string]:{}} = {};
     private nextId = 0;
@@ -8,7 +8,7 @@ export class State<N extends number, S extends number, A extends number>
     private np:Partial<{[n:number]:{[id:string]:number}}> = {};
     private ap:Partial<{[a:number]:{[id:string]:any}}> = {};
 
-    copyFrom(state:State<N, S, A>)
+    copyFrom(state:State<NParam, SParam, AParam>)
     {
         this.entities = state.entities;
         this.nextId = state.nextId;
@@ -29,7 +29,6 @@ export class State<N extends number, S extends number, A extends number>
         if (dic[parameter] == null)
             dic[parameter] = {};
         dic[parameter][id] = v;
-        return null;
     }
 
     private exists(parameter:number, id:string, dic:any)
@@ -48,7 +47,7 @@ export class State<N extends number, S extends number, A extends number>
         delete this.entities[id];
     }
 
-    newEntity():Entity<N, S, A>
+    newEntity():Entity<NParam, SParam, AParam>
     {
         let id = (this.nextId++).toString();
         let e = new Entity(this, id);
@@ -56,7 +55,7 @@ export class State<N extends number, S extends number, A extends number>
         return e;
     }
 
-    getFirstN(n:N):Entity<N, S, A>|undefined
+    getFirstN(n:NParam):Entity<NParam, SParam, AParam>|null
     {
         if (this.np[n] != null)
         {
@@ -66,37 +65,37 @@ export class State<N extends number, S extends number, A extends number>
                 return e;
             }
         }
-        return undefined;
+        return null;
     }
 
-    setNP(parameter:N, v:number, id:string)
+    setNP(parameter:NParam, v:number, id:string)
     {
         this.set(parameter, v, id, this.np);
     }
-    getNP(parameter:N, id:string)
+    getNP(parameter:NParam, id:string)
     {
-        return this.get(parameter, id, this.np);
+        return this.get(parameter, id, this.np) as number | null;
     }
 
-    setSP(parameter:S, v:string, id:string)
+    setSP(parameter:SParam, v:string, id:string)
     {
         this.set(parameter, v, id, this.sp);
     }
-    getSP(parameter:S, id:string)
+    getSP(parameter:SParam, id:string)
     {
-        return this.get(parameter, id, this.sp);
+        return this.get(parameter, id, this.sp)  as string | null;;
     }
 
-    setAP(parameter:A, v:string, id:string)
+    setAP(parameter:AParam, v:string, id:string)
     {
         this.set(parameter, v, id, this.ap);
     }
-    getAP(parameter:A, id:string)
+    getAP(parameter:AParam, id:string)
     {
-        return this.get(parameter, id, this.ap);
+        return this.get(parameter, id, this.ap) as any;;
     }
 
-    forEach(f:(e:Entity<N, S, A>)=>any, npArray:N[] = [], spArray:S[] = [], apArray:A[] = [])
+    forEach(f:(e:Entity<NParam, SParam, AParam>)=>any, npArray:NParam[] = [], spArray:SParam[] = [], apArray:AParam[] = [])
     {
         let e = new Entity(this, "");
         for (let id in this.entities)
