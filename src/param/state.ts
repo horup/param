@@ -1,14 +1,14 @@
-import { S, N, A, Entity } from ".";
+import { Entity } from "./entity";
 
-export class State
+export class State<N extends number, S extends number, A extends number>
 {
     private entities:{[id:string]:{}} = {};
     private nextId = 0;
-    private sp:Partial<{[parameter in S]:{[id:string]:string}}> = {};
-    private np:Partial<{[parameter in N]:{[id:string]:number}}> = {};
-    private ap:Partial<{[parameter in A]:{[id:string]:any}}> = {};
+    private sp:Partial<{[s:number]:{[id:string]:string}}> = {};
+    private np:Partial<{[n:number]:{[id:string]:number}}> = {};
+    private ap:Partial<{[a:number]:{[id:string]:any}}> = {};
 
-    copyFrom(state:State)
+    copyFrom(state:State<N, S, A>)
     {
         this.entities = state.entities;
         this.nextId = state.nextId;
@@ -48,7 +48,7 @@ export class State
         delete this.entities[id];
     }
 
-    newEntity():Entity
+    newEntity():Entity<N, S, A>
     {
         let id = (this.nextId++).toString();
         let e = new Entity(this, id);
@@ -56,9 +56,9 @@ export class State
         return e;
     }
 
-    getFirstN(n:N):Entity|undefined
+    getFirstN(n:N):Entity<N, S, A>|undefined
     {
-        if (this.np[n] != undefined)
+        if (this.np[n] != null)
         {
             for (let id in this.np[n])
             {   
@@ -96,7 +96,7 @@ export class State
         return this.get(parameter, id, this.ap);
     }
 
-    forEach(f:(e:Entity)=>any, npArray:N[] = [], spArray:S[] = [], apArray:A[] = [])
+    forEach(f:(e:Entity<N, S, A>)=>any, npArray:N[] = [], spArray:S[] = [], apArray:A[] = [])
     {
         let e = new Entity(this, "");
         for (let id in this.entities)

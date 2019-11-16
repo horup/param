@@ -1,13 +1,12 @@
-import { N, S, A } from "./parameters";
 import { State } from "./state";
 
 
-export class Entity
+export class Entity<N extends number, S extends number, A extends number>
 {
-    state:State;
+    state:State<N, S, A>;
     id:string;
 
-    constructor(state:State, id:string)
+    constructor(state:State<N, S, A>, id:string)
     {
         this.state = state;
         this.id = id;

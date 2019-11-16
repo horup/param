@@ -1,8 +1,9 @@
-import { System, State, N } from "../domain";
+import { System, State } from "../param";
+import { DynaSystem, DynaState, N } from "../dyna";
 
-export class CleanupSystem implements System
+export class CleanupSystem implements DynaSystem
 {
-    tick(state:State)
+    tick(state:DynaState)
     {
         state.forEach(e=>
         {

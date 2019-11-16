@@ -1,8 +1,9 @@
-import { State, N, System, S, A } from "../domain";
+import { State, System } from "../param";
+import { DynaSystem, DynaState, N, S, A } from "../dyna";
 
-export class SpawnSystem implements System
+export class SpawnSystem implements DynaSystem
 {
-    onClick(x:number, y:number, state:State)
+    onClick(x:number, y:number, state:DynaState)
     {
       /*  let e = state.newEntity();
         e.setN(N.x, x);
@@ -13,7 +14,7 @@ export class SpawnSystem implements System
         e.setS(S.sprite, "player");*/
     }
 
-    spawnPlayer(state:State)
+    spawnPlayer(state:DynaState)
     {
         let e = state.newEntity();
         e.setN(N.x, 1 + 0.5);
@@ -27,7 +28,7 @@ export class SpawnSystem implements System
         e.setN(N.solid, 2);
     }
 
-    spawnGrid(state:State)
+    spawnGrid(state:DynaState)
     {
         let gridEntity = state.newEntity();
         let gridSize = 17;
@@ -67,7 +68,7 @@ export class SpawnSystem implements System
         }
     }
 
-    onKeydown(keyCode:number, state:State)
+    onKeydown(keyCode:number, state:DynaState)
     {
         if (keyCode == 49)
         {

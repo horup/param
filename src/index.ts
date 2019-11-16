@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js';
-import {State, S, N, SystemManager} from './domain';
 import { SpawnSystem } from './systems/spawnSystem';
 import { RenderSystem } from './systems/renderSystem';
 import { PersistenceSystem } from './systems/persistenceSystem';
@@ -7,11 +6,13 @@ import { PersistenceSystem } from './systems/persistenceSystem';
 import { CleanupSystem } from './systems/cleanupSystem';
 import { playerSystem } from './systems/playerSystem';
 import { MovementSystem } from './systems/movementSystem';
+import { DynaState, N, S, A, DynaSystemManager } from './dyna';
+import { State, SystemManager } from './param';
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 const app = new PIXI.Application();
-let state:State = new State();
-const systemManager = new SystemManager();
+let state:DynaState = new State<N, S, A>();
+const systemManager:DynaSystemManager = new SystemManager<N, S, A>();
 let stage = new PIXI.Container();
 
 systemManager.addSystem(SpawnSystem);

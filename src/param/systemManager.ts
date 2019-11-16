@@ -1,20 +1,20 @@
 import { System } from "./system";
 import { State } from "./state";
 
-export class SystemManager
+export class SystemManager<N extends number, S extends number, A extends number>
 {
-    systems:System[] = [];
+    systems:System<N, S, A>[] = [];
     constructor()
     {
     }
 
-    findSystem(system:new()=>System)
+    findSystem(system:new()=>System<N, S, A>)
     {
         let found = this.systems.filter(s=>system.prototype.isPrototypeOf(s))[0];
         return found;
     }
 
-    addSystem(system:new(optional?:any)=>System, optional?:any)
+    addSystem(system:new(optional?:any)=>System<N, S, A>, optional?:any)
     {
         if (this.findSystem(system) != undefined)
             throw "System already exists!";
@@ -23,7 +23,7 @@ export class SystemManager
         return this;
     }
 
-    removeSystem(system:new()=>System)
+    removeSystem(system:new()=>System<N, S, A>)
     {
         let s = this.findSystem(system);
         if (s == undefined)
@@ -32,7 +32,7 @@ export class SystemManager
         this.systems.splice(i, 1);
     }
 
-    once(state:State)
+    once(state:State<N, S, A>)
     {
         this.systems.forEach(s=>
         {
@@ -42,7 +42,7 @@ export class SystemManager
     }
 
     private ticks = 0;
-    tick(state:State, delta:number)
+    tick(state:State<N, S, A>, delta:number)
     {
         if (this.ticks == 0)
         {
@@ -57,7 +57,7 @@ export class SystemManager
         this.ticks++;
     }
 
-    onClick(x:number, y:number, state:State)
+    onClick(x:number, y:number, state:State<N, S, A>)
     {
         this.systems.forEach(s=>
         {
@@ -66,7 +66,7 @@ export class SystemManager
         })
     }
 
-    onKeydown(keyCode:number, state:State)
+    onKeydown(keyCode:number, state:State<N, S, A>)
     {
         this.systems.forEach(s=>
         {
@@ -75,7 +75,7 @@ export class SystemManager
         })
     }
 
-    onKeyup(keyCode:number, state:State)
+    onKeyup(keyCode:number, state:State<N, S, A>)
     {
         this.systems.forEach(s=>
         {

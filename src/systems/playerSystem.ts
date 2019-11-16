@@ -1,4 +1,5 @@
-import { System, State, N } from "../domain";
+import { System, State } from "../param";
+import { DynaSystem, DynaState, N } from "../dyna";
 
 enum Codes
 {
@@ -9,23 +10,23 @@ enum Codes
     space = 32
 }
 
-export class playerSystem implements System
+export class playerSystem implements DynaSystem
 {
     
     down:any = {};
-    onKeydown(keyCode:number, state:State)
+    onKeydown(keyCode:number, state:DynaState)
     {
       //  console.log("down:" + keyCode);
         this.down[keyCode] = true;
     }
 
-    onKeyup(keyCode:number, state:State)
+    onKeyup(keyCode:number, state:DynaState)
     {
     //    console.log("up:" + keyCode);
         delete this.down[keyCode];
     }
 
-    tick(state:State, dt:number)
+    tick(state:DynaState, dt:number)
     {
         let speed = 0.05;
         state.forEach(e=> {

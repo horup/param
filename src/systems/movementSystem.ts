@@ -1,7 +1,8 @@
-import { System, State, N, Entity, A } from "../domain";
+import { System, State, Entity, } from "../param";
 import * as SAT from 'sat';
+import { DynaSystem, DynaState, N, A } from "../dyna";
 
-export class MovementSystem implements System
+export class MovementSystem implements DynaSystem
 {
    /* checkCollision(mover:Entity, state:State, x1:number, y1:number, radius1:number):any
     {
@@ -35,7 +36,7 @@ export class MovementSystem implements System
         return false;
     }*/
 
-    getCell(ix:number, iy:number, grid:string[], gridSize:number, state:State):string | null
+    getCell(ix:number, iy:number, grid:string[], gridSize:number, state:DynaState):string | null
     {
         let i = gridSize * iy + ix;
         if (i>=0 && i < gridSize)
@@ -44,7 +45,7 @@ export class MovementSystem implements System
         return null;
     }
     
-    tick(state:State, dt:number)
+    tick(state:DynaState, dt:number)
     {
         let gridEntity = state.getFirstN(N.gridSize);
         if (gridEntity != undefined)

@@ -1,8 +1,9 @@
-import { System, State } from "../domain";
+import { System, State } from "../param";
+import { DynaSystem, DynaState } from "../dyna";
 
-export class PersistenceSystem implements System
+export class PersistenceSystem implements DynaSystem
 {
-    once(state:State)
+    once(state:DynaState)
     {
         try
         {
@@ -18,7 +19,7 @@ export class PersistenceSystem implements System
         }
     }
 
-    tick(state:State)
+    tick(state:DynaState)
     {
         localStorage.setItem("current", JSON.stringify(state));
     }

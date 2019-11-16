@@ -1,8 +1,9 @@
-import { State, System, N, S } from '../domain';
+import { State, System } from '../param';
 import * as PIXI from 'pixi.js';
 import * as imgs from '../../imgs';
+import { DynaSystem, DynaState, N, S } from '../dyna';
 type Seen = {[id:string]:any};
-export class RenderSystem implements System
+export class RenderSystem implements DynaSystem
 {
     stage:PIXI.Container;
     graphics:PIXI.Graphics;
@@ -28,7 +29,7 @@ export class RenderSystem implements System
             this.sprites.removeChild(r);
     }
 
-    private drawSprites(state:State, dt:number, seen:Seen)
+    private drawSprites(state:DynaState, dt:number, seen:Seen)
     {
         let f = 1/16;
         state.forEach(e => {
@@ -49,7 +50,7 @@ export class RenderSystem implements System
         }, [N.x, N.y], [S.sprite])
     }
 
-    tick(state:State, dt:number)
+    tick(state:DynaState, dt:number)
     {
         let seen:Seen = {};
         
