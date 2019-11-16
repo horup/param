@@ -1,5 +1,5 @@
-import { System, State } from "../param";
-import { DynaSystem, DynaState, N } from "../dyna";
+import { System, State } from "../../param";
+import { DynaSystem, DynaState, N } from "..";
 
 export class CleanupSystem implements DynaSystem
 {

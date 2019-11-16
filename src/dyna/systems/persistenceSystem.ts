@@ -1,5 +1,5 @@
-import { System, State } from "../param";
-import { DynaSystem, DynaState } from "../dyna";
+import { System, State } from "../../param";
+import { DynaSystem, DynaState } from "..";
 
 export class PersistenceSystem implements DynaSystem
 {

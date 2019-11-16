@@ -1,6 +1,6 @@
-import { System, State, Entity, } from "../param";
+import { System, State, Entity, } from "../../param";
 import * as SAT from 'sat';
-import { DynaSystem, DynaState, N, A } from "../dyna";
+import { DynaSystem, DynaState, N, A } from "..";
 
 export class MovementSystem implements DynaSystem
 {

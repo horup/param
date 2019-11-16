@@ -1,7 +1,7 @@
-import { State, System } from '../param';
+import { State, System } from '../../param';
 import * as PIXI from 'pixi.js';
-import * as imgs from '../../imgs';
-import { DynaSystem, DynaState, N, S } from '../dyna';
+import * as imgs from '../../../imgs';
+import { DynaSystem, DynaState, N, S } from '..';
 type Seen = {[id:string]:any};
 export class RenderSystem implements DynaSystem
 {

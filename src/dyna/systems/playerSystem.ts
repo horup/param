@@ -1,5 +1,5 @@
-import { System, State } from "../param";
-import { DynaSystem, DynaState, N } from "../dyna";
+import { System, State } from "../../param";
+import { DynaSystem, DynaState, N } from "..";
 
 enum Codes
 {
