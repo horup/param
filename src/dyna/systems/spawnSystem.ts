@@ -1,5 +1,5 @@
 import { State, System } from "../../param";
-import { DynaSystem, DynaState, N, S, A } from "..";
+import { DynaSystem, DynaState, N, S, A } from "../domain";
 
 export class SpawnSystem implements DynaSystem
 {
@@ -33,15 +33,17 @@ export class SpawnSystem implements DynaSystem
         let gridEntity = state.newEntity();
         let gridSize = 17;
         gridEntity.setN(N.gridSize, gridSize);
-        let grid:string[] = new Array(gridSize*gridSize);
-        gridEntity.setA(A.grid, grid);
+        let blockGrid:string[] = new Array(gridSize * gridSize);
+        let bombGrid:string[] = new Array(gridSize * gridSize);
+        gridEntity.setA(A.blockGrid, blockGrid);
+        gridEntity.setA(A.bombGrid, bombGrid);
         for (let y = 0; y < gridSize; y++)
         {
             for (let x = 0; x < gridSize; x++)
             {
                 let e = state.newEntity();
                 let i = y * gridSize + x;
-                grid[i] = e.id;
+                blockGrid[i] = e.id;
                 e.setN(N.x, x + 0.5);
                 e.setN(N.y, y + 0.5);
                 e.setN(N.anchorX, 0.5);

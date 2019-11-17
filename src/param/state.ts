@@ -68,6 +68,7 @@ export class State<NParam extends number, SParam extends number, AParam extends 
         return null;
     }
 
+
     setNP(parameter:NParam, v:number, id:string)
     {
         this.set(parameter, v, id, this.np);

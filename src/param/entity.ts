@@ -52,4 +52,13 @@ export class Entity<NParam extends number, SParam extends number, AParam extends
 
         return nArray;
     }
+
+    getAArray(...args:AParam[]):(any|null)[]
+    {
+        let nArray:(any|null)[] = [];
+        for (let i = 0; i < args.length; i++)
+            nArray[i] = this.getA(args[i]);
+
+        return nArray;
+    }
 }

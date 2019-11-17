@@ -1,5 +1,6 @@
 import { System, State } from "../../param";
-import { DynaSystem, DynaState, N } from "..";
+import { DynaSystem, DynaState, N, Grid } from "../domain";
+import { A, S } from "../domain/parameters";
 
 enum Codes
 {
@@ -29,7 +30,13 @@ export class playerSystem implements DynaSystem
     tick(state:DynaState, dt:number)
     {
         let speed = 0.05;
+        let grid = Grid.firstGrid(state);
+
         state.forEach(e=> {
+            
+            let [x, y] = e.getNArray(N.x, N.y);
+            if (x == null || y == null)
+                return;
             if (this.down[Codes.up])
                 e.setN(N.vy, -speed);
             else if (this.down[Codes.down])
@@ -43,6 +50,22 @@ export class playerSystem implements DynaSystem
                 e.setN(N.vx, speed);
             else
                 e.setN(N.vx, 0);
+
+            if (this.down[Codes.space])
+            {
+                // place bomb
+                if (grid != null)
+                {
+                    let e = state.newEntity();
+                    e.setN(N.x, Math.floor(x)+0.5);
+                    e.setN(N.y, Math.floor(y)+0.5);
+                    e.setN(N.anchorX, 0.5);
+                    e.setN(N.anchorY, 0.5);
+                    e.setS(S.sprite, "bomb");
+                    console.log("bomb placed");
+                }
+
+            }
             
 
         }, [N.x, N.y, N.vx, N.vy])

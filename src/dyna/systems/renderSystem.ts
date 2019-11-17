@@ -1,7 +1,7 @@
 import { State, System } from '../../param';
 import * as PIXI from 'pixi.js';
 import * as imgs from '../../../imgs';
-import { DynaSystem, DynaState, N, S } from '..';
+import { DynaSystem, DynaState, N, S } from '../domain';
 type Seen = {[id:string]:any};
 export class RenderSystem implements DynaSystem
 {
@@ -48,14 +48,14 @@ export class RenderSystem implements DynaSystem
             if (sprite != null)
             {
                 let [x, y, anchorX, anchorY] = e.getNArray(N.x, N.y, N.anchorX, N.anchorY);
-                if (x != null && y != null && anchorX != null && anchorY)
                 {
-                    sprite.x = x;
-                    sprite.y = y;
-                    sprite.anchor.x = anchorX;
-                    sprite.anchor.y = anchorY;
+                    sprite.x = x != null ? x : 0;
+                    sprite.y = y != null ? y : 0;
+                    sprite.anchor.x = anchorX != null ? anchorX : 0;
+                    sprite.anchor.y = anchorY != null ? anchorY : 0;
                     seen[e.id] = true;
                 }
+               
             }
         }, [N.x, N.y], [S.sprite])
     }
