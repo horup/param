@@ -112,13 +112,15 @@ export class MovementSystem implements DynaSystem
         {
 
             let grid = gridEntity.getA(A.grid) as string[];
-            let spd = 0.05;
             state.forEach((e) => {
                 let [x, y, vx, vy] = e.getNArray(N.x, N.y, N.vx, N.vy);
                 if (x == null || y == null || vx == null || vy == null)
                     return;
                 if (vx == 0 && vy == 0)
                     return;
+
+                let spd = Math.sqrt(vx * vx + vy * vy);
+                
 
 
                 let moveToCenter = ()=>
