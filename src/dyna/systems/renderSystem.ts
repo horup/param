@@ -56,10 +56,10 @@ export class RenderSystem implements DynaSystem
                 seen[e.id] = true;
 
                 frames = frames != null ? frames : 1;
-                let frame = 0;
+                let frame = Math.floor(e.getN(N.frame, 0) as number) % frames;
                 let w = sprite.texture.baseTexture.width;
                 let h = sprite.texture.baseTexture.height;
-                sprite.texture = new PIXI.Texture(sprite.texture.baseTexture, new PIXI.Rectangle(frame,0, w/frames,h));
+                sprite.texture = new PIXI.Texture(sprite.texture.baseTexture, new PIXI.Rectangle(frame * w/frames,0, w/frames,h));
             }
         }, [N.x, N.y], [S.sprite])
     }

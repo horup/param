@@ -33,6 +33,14 @@ export class playerSystem implements DynaSystem
         let grid = Grid.firstGrid(state);
 
         state.forEach(e=> {
+            let frame = e.getN(N.frame);
+                if (frame != null)
+                {
+                    e.setN(N.frame, frame+0.05);
+                }
+            }, [N.frame]);
+
+        state.forEach(e=> {
             
             let [x, y] = e.getNArray(N.x, N.y);
             if (x == null || y == null)
@@ -66,6 +74,7 @@ export class playerSystem implements DynaSystem
                         e.setN(N.anchorX, 0.5);
                         e.setN(N.anchorY, 0.5);
                         e.setN(N.frames, 3);
+                        e.setN(N.frame, 0);
                         e.setS(S.sprite, "bomb");
                         console.log("bomb placed");
                         grid.setBombId(ix, iy, e.id);
