@@ -6,8 +6,9 @@ import { RenderSystem } from './systems/renderSystem';
 import { PersistenceSystem } from './systems/persistenceSystem';
 
 import { CleanupSystem } from './systems/cleanupSystem';
-import { playerSystem } from './systems/playerSystem';
+import { PlayerSystem } from './systems/playerSystem';
 import { MovementSystem } from './systems/movementSystem';
+import { BombSystem } from './systems/bombSystem';
 
 
 export * from './domain/parameters';
@@ -19,7 +20,8 @@ const systemManager:DynaSystemManager = new SystemManager<N, S, A>();
 let stage = new PIXI.Container();
 
 systemManager.addSystem(SpawnSystem);
-systemManager.addSystem(playerSystem);
+systemManager.addSystem(PlayerSystem);
+systemManager.addSystem(BombSystem);
 systemManager.addSystem(MovementSystem);
 systemManager.addSystem(CleanupSystem);
 

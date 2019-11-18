@@ -69,7 +69,7 @@ export class State<NParam extends number, SParam extends number, AParam extends 
     }
 
 
-    setNP(parameter:NParam, v:number, id:string)
+    setNP(parameter:NParam, v:number|null, id:string)
     {
         this.set(parameter, v, id, this.np);
     }
@@ -78,7 +78,7 @@ export class State<NParam extends number, SParam extends number, AParam extends 
         return this.get(parameter, id, this.np) as number | null;
     }
 
-    setSP(parameter:SParam, v:string, id:string)
+    setSP(parameter:SParam, v:string|null, id:string)
     {
         this.set(parameter, v, id, this.sp);
     }
@@ -87,7 +87,7 @@ export class State<NParam extends number, SParam extends number, AParam extends 
         return this.get(parameter, id, this.sp)  as string | null;;
     }
 
-    setAP(parameter:AParam, v:string, id:string)
+    setAP(parameter:AParam, v:string|null, id:string)
     {
         this.set(parameter, v, id, this.ap);
     }

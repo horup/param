@@ -40,7 +40,7 @@ export class Grid
         return null;
     }
 
-    setBombId(x:number, y:number, id:string)
+    setBombId(x:number, y:number, id:string | null)
     {
         let e = this.e;
         let [bombGrid, blockGrid] = e.getAArray(A.bombGrid, A.blockGrid);

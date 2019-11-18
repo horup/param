@@ -11,7 +11,7 @@ enum Codes
     space = 32
 }
 
-export class playerSystem implements DynaSystem
+export class PlayerSystem implements DynaSystem
 {
     
     down:any = {};
@@ -31,14 +31,6 @@ export class playerSystem implements DynaSystem
     {
         let speed = 0.05;
         let grid = Grid.firstGrid(state);
-
-        state.forEach(e=> {
-            let frame = e.getN(N.frame);
-                if (frame != null)
-                {
-                    e.setN(N.frame, frame+0.05);
-                }
-            }, [N.frame]);
 
         state.forEach(e=> {
             
@@ -75,7 +67,10 @@ export class playerSystem implements DynaSystem
                         e.setN(N.anchorY, 0.5);
                         e.setN(N.frames, 3);
                         e.setN(N.frame, 0);
+                        e.setN(N.flame, 2);
                         e.setS(S.sprite, "bomb");
+                        e.setN(N.fuse, 60);
+                        e.setS(S.owner, e.id);
                         console.log("bomb placed");
                         grid.setBombId(ix, iy, e.id);
                     }

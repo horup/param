@@ -37,7 +37,16 @@ export enum N
     frames,
 
     /** current frame */
-    frame
+    frame,
+
+    /** fuse of a bomb entity, when it reaches 0 it goes boom! */
+    fuse,
+
+    /** length of the flame produced by an explosion */
+    flame,
+
+    /** Life of a flame, when it reaches 0 it is exstingished */
+    flameLife,
 
 }
 
@@ -48,6 +57,9 @@ export enum S
 
     /** name of the sprite used for the entity */
     sprite,
+
+    /** points to an entity id which 'owns' the entity */
+    owner
 }
 
 
