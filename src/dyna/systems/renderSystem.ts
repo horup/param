@@ -39,6 +39,7 @@ export class RenderSystem implements DynaSystem
                 if (spriteName != null)
                 {
                     sprite = PIXI.Sprite.from((imgs as any)[spriteName]);
+                   // sprite.texture = new PIXI.Texture(sprite.texture.baseTexture);
                     sprite.name = e.id;
                     sprite.scale.set(1/16);
                     this.sprites.addChild(sprite);
@@ -47,15 +48,18 @@ export class RenderSystem implements DynaSystem
             
             if (sprite != null)
             {
-                let [x, y, anchorX, anchorY] = e.getNArray(N.x, N.y, N.anchorX, N.anchorY);
-                {
-                    sprite.x = x != null ? x : 0;
-                    sprite.y = y != null ? y : 0;
-                    sprite.anchor.x = anchorX != null ? anchorX : 0;
-                    sprite.anchor.y = anchorY != null ? anchorY : 0;
-                    seen[e.id] = true;
-                }
-               
+                let [x, y, anchorX, anchorY, frames] = e.getNArray(N.x, N.y, N.anchorX, N.anchorY, N.frames);
+                sprite.x = x != null ? x : 0;
+                sprite.y = y != null ? y : 0;
+                sprite.anchor.x = anchorX != null ? anchorX : 0;
+                sprite.anchor.y = anchorY != null ? anchorY : 0;
+                seen[e.id] = true;
+
+                frames = frames != null ? frames : 1;
+                let frame = 0;
+                let w = sprite.texture.baseTexture.width;
+                let h = sprite.texture.baseTexture.height;
+                sprite.texture = new PIXI.Texture(sprite.texture.baseTexture, new PIXI.Rectangle(frame,0, w/frames,h));
             }
         }, [N.x, N.y], [S.sprite])
     }

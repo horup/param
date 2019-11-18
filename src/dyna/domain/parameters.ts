@@ -32,7 +32,9 @@ export enum N
     bombs,
 
     /** number of max avaliable bombs */
-    bombsMax
+    bombsMax,
+    /** number of frames for the sprite */
+    frames
 
 }
 
