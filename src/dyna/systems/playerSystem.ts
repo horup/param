@@ -56,13 +56,19 @@ export class playerSystem implements DynaSystem
                 // place bomb
                 if (grid != null)
                 {
-                    let e = state.newEntity();
-                    e.setN(N.x, Math.floor(x)+0.5);
-                    e.setN(N.y, Math.floor(y)+0.5);
-                    e.setN(N.anchorX, 0.5);
-                    e.setN(N.anchorY, 0.5);
-                    e.setS(S.sprite, "bomb");
-                    console.log("bomb placed");
+                    let ix = Math.floor(x)+0.5;
+                    let iy = Math.floor(y)+0.5;
+                    if (grid.getBombId(ix, iy) == null)
+                    {
+                        let e = state.newEntity();
+                        e.setN(N.x, ix);
+                        e.setN(N.y, iy);
+                        e.setN(N.anchorX, 0.5);
+                        e.setN(N.anchorY, 0.5);
+                        e.setS(S.sprite, "bomb");
+                        console.log("bomb placed");
+                        grid.setBombId(ix, iy, e.id);
+                    }
                 }
 
             }

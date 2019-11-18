@@ -40,6 +40,24 @@ export class Grid
         return null;
     }
 
+    setBombId(x:number, y:number, id:string)
+    {
+        let e = this.e;
+        let [bombGrid, blockGrid] = e.getAArray(A.bombGrid, A.blockGrid);
+        let gridSize = e.getN(N.gridSize);
+        if (bombGrid == null || blockGrid == null || gridSize == null)
+            return false;
+        let i = gridSize * Math.floor(y) + Math.floor(x);
+
+        if (i>=0 && i < gridSize * gridSize)
+        {
+            bombGrid[i] = id;
+            return true;
+        }
+
+        return false;
+    }
+
 
     static firstGrid(state:DynaState):Grid | null
     {
