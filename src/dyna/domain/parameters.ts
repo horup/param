@@ -48,15 +48,15 @@ export enum N
     /** Life of a flame, when it reaches 0 it is exstingished */
     flameLife,
 
+    /** sprite used for entity, should be a value from Sprite enum */
+    sprite 
+
 }
 
 export enum S
 {
     /** visible title of the entity */
     title,
-
-    /** name of the sprite used for the entity */
-    sprite,
 
     /** points to an entity id which 'owns' the entity */
     owner
@@ -70,4 +70,14 @@ export enum A
 
     /** a 2d grid of bombs, each cell can only hold a single bomb, length = gridSize*gridSize */
     bombGrid
+}
+
+
+export enum SpriteType
+{
+    player,
+    bomb,
+    block,
+    flame, 
+    tile
 }

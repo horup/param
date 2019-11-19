@@ -1,4 +1,4 @@
-import { DynaSystem, DynaState, N, Grid, S } from "../domain";
+import { DynaSystem, DynaState, N, Grid, S, SpriteType } from "../domain";
 
 export class BombSystem implements DynaSystem
 {
@@ -34,7 +34,7 @@ export class BombSystem implements DynaSystem
                         e.setN(N.anchorX, 0.5);
                         e.setN(N.anchorY, 0.5);
                         e.setN(N.flameLife, 30);
-                        e.setS(S.sprite, "flame");
+                        e.setN(N.sprite, SpriteType.flame);
                     }
                     let spewflame = (x:number, y: number, dx:number, dy:number, flame:number) =>
                     {
@@ -54,7 +54,7 @@ export class BombSystem implements DynaSystem
                                     if (block != null && state.getNP(N.solid, block) != null)
                                     {
                                         state.setNP(N.solid, null, block);
-                                        state.setSP(S.sprite, "grass", block);
+                                        state.setNP(N.frame, 1, block);
                                         return;
                                     }
                                     else

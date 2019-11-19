@@ -1,6 +1,6 @@
 import { System, State } from "../../param";
 import { DynaSystem, DynaState, N, Grid } from "../domain";
-import { A, S } from "../domain/parameters";
+import { A, S, SpriteType } from "../domain/parameters";
 
 enum Codes
 {
@@ -68,7 +68,7 @@ export class PlayerSystem implements DynaSystem
                         e.setN(N.frames, 3);
                         e.setN(N.frame, 0);
                         e.setN(N.flame, 2);
-                        e.setS(S.sprite, "bomb");
+                        e.setN(N.sprite, SpriteType.bomb);
                         e.setN(N.fuse, 60);
                         e.setS(S.owner, e.id);
                         console.log("bomb placed");

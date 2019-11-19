@@ -1,5 +1,5 @@
 import { State, System } from "../../param";
-import { DynaSystem, DynaState, N, S, A } from "../domain";
+import { DynaSystem, DynaState, N, S, A, SpriteType } from "../domain";
 
 export class SpawnSystem implements DynaSystem
 {
@@ -24,7 +24,7 @@ export class SpawnSystem implements DynaSystem
         e.setN(N.anchorX, 0.5);
         e.setN(N.anchorY, 0.75);
         e.setN(N.health, 100);
-        e.setS(S.sprite, "player");
+        e.setN(N.sprite, SpriteType.player);
         e.setN(N.solid, 2);
     }
 
@@ -48,22 +48,25 @@ export class SpawnSystem implements DynaSystem
                 e.setN(N.y, y + 0.5);
                 e.setN(N.anchorX, 0.5);
                 e.setN(N.anchorY, 0.5);
-
+                e.setN(N.sprite, SpriteType.tile);
                 if (y == 0 || y == gridSize-1 || x == 0 || x == gridSize-1)
                 {
                     e.setN(N.solid, 1);
-                    e.setS(S.sprite, "stone");
+                    e.setN(N.frame, 0);
+
                 }
                 else
                 {
                     if (x % 2 == 0 && y % 2 == 0)
                     {
                         e.setN(N.solid, 1);
-                        e.setS(S.sprite, "block");
+                        e.setN(N.frame, 7+1);
+
+                     //  e.setN(N.sprite, "block");
                     }
                     else
                     {
-                        e.setS(S.sprite, "grass");
+                        e.setN(N.frame, 1);
                     }
                 }
             }
