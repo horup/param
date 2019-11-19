@@ -4,13 +4,6 @@ export class BombSystem implements DynaSystem
 {
     tick(state:DynaState, dt:number)
     {
-        state.forEach((e)=> {
-            let life = e.getN(N.flameLife) as number;
-            life--;
-            e.setN(N.flameLife, life);
-            if (life <= 0)
-                state.delete(e.id);
-        }, [N.flameLife])
         state.forEach((e)=>
         {
             let fuse = e.getN(N.fuse) as number;
@@ -69,6 +62,9 @@ export class BombSystem implements DynaSystem
 
                     spewflame(x, y, 0,0, flame);
                     spewflame(x, y, 1, 0, flame);
+                    spewflame(x, y, -1, 0, flame);
+                    spewflame(x, y, 0, -1, flame);
+                    spewflame(x, y, 0, 1, flame);
                 }
             }
             else

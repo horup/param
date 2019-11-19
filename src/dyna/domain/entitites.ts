@@ -10,34 +10,32 @@ export class Grid
         this.e = e;
     }
 
-    getBlockId(x:number, y:number):string | null
+    private get(x:number, y:number, a:A)
     {
         let e = this.e;
-        let [bombGrid, blockGrid] = e.getAArray(A.bombGrid, A.blockGrid);
+        let grid = e.getA(a);
         let gridSize = e.getN(N.gridSize);
-        if (bombGrid == null || blockGrid == null || gridSize == null)
+        if (grid == null || gridSize == null)
             return null;
+        if (x<0 || x >= gridSize || y<0 || y>=gridSize)
+            return null;
+            
         let i = gridSize * Math.floor(y) + Math.floor(x);
 
         if (i>=0 && i < gridSize * gridSize)
-            return blockGrid[i];
+            return grid[i];
 
         return null;
     }
 
+    getBlockId(x:number, y:number):string | null
+    {
+        return this.get(x, y, A.blockGrid);
+    }
+
     getBombId(x:number, y:number):string | null
     {
-        let e = this.e;
-        let [bombGrid, blockGrid] = e.getAArray(A.bombGrid, A.blockGrid);
-        let gridSize = e.getN(N.gridSize);
-        if (bombGrid == null || blockGrid == null || gridSize == null)
-            return null;
-        let i = gridSize * Math.floor(y) + Math.floor(x);
-
-        if (i>=0 && i < gridSize * gridSize)
-            return bombGrid[i];
-
-        return null;
+        return this.get(x, y, A.bombGrid);
     }
 
     setBombId(x:number, y:number, id:string | null)

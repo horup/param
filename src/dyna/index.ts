@@ -14,6 +14,7 @@ PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 const loader = PIXI.Loader.shared;
 
 import * as imgs from './imgs';
+import { FlameSystem } from './systems/flameSystem';
 
 loader.add(SpriteType.block.toString(), imgs.block);
 loader.add(SpriteType.bomb.toString(), imgs.bomb);
@@ -32,6 +33,7 @@ loader.load(()=>
     systemManager.addSystem(SpawnSystem);
     systemManager.addSystem(PlayerSystem);
     systemManager.addSystem(BombSystem);
+    systemManager.addSystem(FlameSystem);
     systemManager.addSystem(MovementSystem);
     systemManager.addSystem(CleanupSystem);
     
