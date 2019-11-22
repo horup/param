@@ -106,7 +106,7 @@ export class RenderSystem implements DynaSystem
                 if (spriteType != null)
                 {
                     sprite.spriteType = spriteType;
-                    let [x, y, anchorX, anchorY, frames] = e.getNArray(N.x, N.y, N.anchorX, N.anchorY, N.frames);
+                    let [x, y, anchorX, anchorY] = e.getNArray(N.x, N.y, N.anchorX, N.anchorY);
                     sprite.x = x != null ? x : 0;
                     sprite.y = y != null ? y : 0;
                     sprite.anchor.x = anchorX != null ? anchorX : 0;
