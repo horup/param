@@ -23,6 +23,18 @@ export class MovementSystem implements DynaSystem
         return isSolid;
     }
 
+    getIsBomb(x:number, y:number, grid:Grid)
+    {
+        let state = grid.getState();
+        let cellId = grid.getBombId(x, y);
+        if (cellId != null)
+        {
+            return state.getNP(N.fuse, cellId) != null
+        }
+
+        return false;
+    }
+
     foreachAdjacent(x:number, y:number, f:(ax:number, ay:number)=>void)
     {
         x = Math.floor(x);
@@ -36,7 +48,7 @@ export class MovementSystem implements DynaSystem
         }
     }
 
-    collides(x:number, y:number, grid:Grid)
+    collides(x:number, y:number, grid:Grid, dx = 0, dy = 0)
     {
         let state = grid.getState();
         let r = 1;
@@ -49,6 +61,10 @@ export class MovementSystem implements DynaSystem
         box1.pos.y = y - r/2 + a;
         let collision = false;
         this.foreachAdjacent(x, y, (ax, ay)=>{
+            if (dx > 0 && ax < x) return;
+            if (dx < 0 && ax > x) return;
+            if (dy > 0 && ay < y) return;
+            if (dy < 0 && ay > y) return;
             if (this.getIsSolid(ax, ay, grid))
             {
                 box2.pos.x = ax + a;
@@ -123,14 +139,14 @@ export class MovementSystem implements DynaSystem
             {
                 nx = x + vx;
                 let dx = Math.sign(vx);
-                if (!this.collides(x + vx, ny, grid))
+                if (!this.collides(x + vx, ny, grid, dx, 0))
                 {
                     e.setN(N.x, nx);
                 }
                 else
                 {
                     nx = x;
-                    if (!this.getIsSolid(x+dx, y, grid))
+                    if (!this.getIsSolid(x+dx, y, grid) || this.getIsBomb(x+dx, y, grid))
                     {
                         centerize = true;
                     }
@@ -142,14 +158,14 @@ export class MovementSystem implements DynaSystem
                 ny = y + vy;
                 let dy = Math.sign(vy);
 
-                if (!this.collides(nx, ny, grid))
+                if (!this.collides(nx, ny, grid, 0, dy))
                 {
                     e.setN(N.y, ny);
                 }
                 else
                 {
                     ny = y;
-                    if (!this.getIsSolid(x, y+dy, grid))
+                    if (!this.getIsSolid(x, y+dy, grid) || this.getIsBomb(x, y+dy, grid))
                     {
                         centerize = true;
                     }
