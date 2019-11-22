@@ -79,7 +79,6 @@ export class MovementSystem implements DynaSystem
         let gridEntity = state.getFirstN(N.gridSize);
         if (gridEntity != undefined)
         {
-
             let grid = gridEntity.getA(A.blockGrid) as string[];
             state.forEach((e) => {
                 let [x, y, vx, vy] = e.getNArray(N.x, N.y, N.vx, N.vy);

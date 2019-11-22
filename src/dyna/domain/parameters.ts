@@ -18,8 +18,8 @@ export enum N
     /** health of the entity */
     health,
 
-    /** 1 if the entity is solid
-     *  2 if the entity is soft, but solid, i.e. can pass through other soft entities */
+    /** 1 if the entity is solid and cannot be destroyed
+     *  2 if the entity is solid but can be destroyed */
     solid,
 
     anchorX,

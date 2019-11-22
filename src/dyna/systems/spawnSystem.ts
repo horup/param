@@ -59,7 +59,7 @@ export class SpawnSystem implements DynaSystem
                 {
                     if (x % 2 == 0 && y % 2 == 0)
                     {
-                        e.setN(N.solid, 1);
+                        e.setN(N.solid, 2);
                         e.setN(N.frame, 7+1);
 
                      //  e.setN(N.sprite, "block");

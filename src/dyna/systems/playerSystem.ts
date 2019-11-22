@@ -65,13 +65,12 @@ export class PlayerSystem implements DynaSystem
                         e.setN(N.y, iy);
                         e.setN(N.anchorX, 0.5);
                         e.setN(N.anchorY, 0.5);
-                        e.setN(N.frames, 3);
                         e.setN(N.frame, 0);
+                        e.setN(N.solid, 2);
                         e.setN(N.flame, 2);
                         e.setN(N.sprite, SpriteType.bomb);
-                        e.setN(N.fuse, 60);
+                        e.setN(N.fuse, 60*2);
                         e.setS(S.owner, e.id);
-                        console.log("bomb placed");
                         grid.setBombId(ix, iy, e.id);
                     }
                 }

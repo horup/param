@@ -44,16 +44,24 @@ export class BombSystem implements DynaSystem
                                     x += dx;
                                     y += dy;
                                     let block = grid.getBlockId(x, y);
-                                    if (block != null && state.getNP(N.solid, block) != null)
+                                    if (block != null)
                                     {
-                                        state.setNP(N.solid, null, block);
-                                        state.setNP(N.frame, 1, block);
-                                        return;
-                                    }
-                                    else
-                                    {
-                                        makeflame(x, y);
-                                        flame--;
+                                        let solid = state.getNP(N.solid, block);
+                                        if (solid != null)
+                                        {
+                                            if (solid == 2)
+                                            {
+                                                state.setNP(N.solid, null, block);
+                                                state.setNP(N.frame, 1, block);
+                                            }
+                                           
+                                            return;
+                                        }
+                                        else
+                                        {
+                                            makeflame(x, y);
+                                            flame--;
+                                        }
                                     }
                                 }
                             }
