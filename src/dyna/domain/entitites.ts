@@ -57,6 +57,11 @@ export class Grid
     }
 
 
+    getState()
+    {
+        return this.e.state;
+    }
+
     static firstGrid(state:DynaState):Grid | null
     {
         let e = state.getFirstN(N.gridSize);

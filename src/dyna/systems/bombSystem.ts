@@ -11,7 +11,7 @@ export class BombSystem implements DynaSystem
             let y = e.getN(N.y) as number;
             let flame = e.getN(N.flame) as number;
             
-            if (fuse <= 0)
+            if (fuse <= 0 && false)
             {
                 let grid = Grid.firstGrid(state);
                 if (grid != null)
